@@ -1,0 +1,22 @@
+services:
+  backend:
+    restart: on-failure
+    build: ./backend
+    ports:
+      - '81:3001'
+    environment:
+      - JWT_SECRET='MABIMATKHONGBIET'
+  frontend:
+    restart: on-failure
+    build: ./frontend
+    ports:
+      - '82:3000'
+  nginx:
+    image: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+      - frontend
